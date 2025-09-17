@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/froki/vox/build/_deps/sol2-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

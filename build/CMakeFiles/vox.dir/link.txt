@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/vox.dir/src/main.cpp.o CMakeFiles/vox.dir/src/Editor.cpp.o CMakeFiles/vox.dir/src/LuaManager.cpp.o CMakeFiles/vox.dir/src/Terminal.cpp.o -o vox  /usr/lib/x86_64-linux-gnu/liblua5.4.so -lm

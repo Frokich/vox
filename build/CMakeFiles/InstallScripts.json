@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/froki/vox/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

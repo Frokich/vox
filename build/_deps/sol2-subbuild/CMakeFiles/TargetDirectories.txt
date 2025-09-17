@@ -1,0 +1,3 @@
+/home/froki/vox/build/_deps/sol2-subbuild/CMakeFiles/sol2-populate.dir
+/home/froki/vox/build/_deps/sol2-subbuild/CMakeFiles/edit_cache.dir
+/home/froki/vox/build/_deps/sol2-subbuild/CMakeFiles/rebuild_cache.dir

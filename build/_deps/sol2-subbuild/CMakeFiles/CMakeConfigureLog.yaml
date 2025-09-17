@@ -1,0 +1,58 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/opt/cmake/share/cmake-4.1/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:16 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/opt/cmake/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/local/games/"
+      - "/usr/sbin/"
+      - "/usr/bin/"
+      - "/usr/games/"
+      - "/sbin/"
+      - "/bin/"
+    searched_directories:
+      - "/opt/cmake/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+      - "/usr/local/games/uname"
+      - "/usr/sbin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/opt/cmake/bin"
+        - "/opt/cmake/bin"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/local/games"
+        - "/usr/sbin"
+        - "/usr/bin"
+        - "/usr/games"
+        - "/sbin"
+        - "/bin"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/opt/cmake/share/cmake-4.1/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:16 (project)"
+    message: |
+      The system is: Linux - 5.10.114-16025-ge75506b9d98e - x86_64
+...

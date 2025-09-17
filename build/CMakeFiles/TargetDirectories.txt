@@ -1,0 +1,3 @@
+/home/froki/vox/build/CMakeFiles/vox.dir
+/home/froki/vox/build/CMakeFiles/edit_cache.dir
+/home/froki/vox/build/CMakeFiles/rebuild_cache.dir
