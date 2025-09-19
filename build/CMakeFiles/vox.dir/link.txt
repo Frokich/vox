@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/vox.dir/src/main.cpp.o CMakeFiles/vox.dir/src/editor.cpp.o CMakeFiles/vox.dir/src/terminal.cpp.o CMakeFiles/vox.dir/src/row_operations.cpp.o CMakeFiles/vox.dir/src/file_io.cpp.o CMakeFiles/vox.dir/src/input.cpp.o CMakeFiles/vox.dir/src/lua_integration.cpp.o -o vox  /usr/lib/x86_64-linux-gnu/liblua5.4.so -lm

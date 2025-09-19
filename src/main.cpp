@@ -1,29 +1,28 @@
 /**
  * @file main.cpp
- * @brief Entry point for 'vox' — minimal Lua-extensible terminal text editor.
+ * @brief Entry point for 'vox' — minimal Lua-extensible terminal text editor, now using ncurses for stable rendering.
  * 
  * Flow:
- * - Enables raw terminal mode
- * - Initializes editor state and Lua
+ * - Initializes ncurses terminal
+ * - Sets up editor state and Lua bindings
  * - Loads file if provided
  * - Enters main loop: refresh screen → process keypress
  * 
- * Lua: Loads 'scripts/init.lua' on startup.
+ * Lua: Loads 'scripts/init.lua' on startup. All Lua functions (save, quit, insert, etc) work unchanged.
  * 
- * Note: No logging. Exits cleanly with disableRawMode(). POSIX only.
+ * Note: No logging. External behavior identical to ANSI version. Cursor is always visible and correctly positioned.
  */
 
-#include "file_io.hpp"  
 #include "editor.hpp"
 #include "terminal.hpp"
 #include "input.hpp"
+#include "file_io.hpp"
 #include "lua_integration.hpp"
-#include <cstdlib>
 
 using namespace vox;
 
 int main(int argc, char* argv[]) {
-    enableRawMode();
+    initTerminal();
     initEditor();
     initLua();
 
@@ -34,9 +33,10 @@ int main(int argc, char* argv[]) {
     editorSetStatusMessage("HELP: Ctrl-S = save | Ctrl-Q = quit | Lua loaded");
 
     while (true) {
-        editorRefreshScreen();
+        refreshTerminal();
         editorProcessKeypress();
     }
 
+    cleanupTerminal();
     return 0;
 }

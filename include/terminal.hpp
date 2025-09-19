@@ -1,22 +1,25 @@
 /**
  * @file terminal.hpp
- * @brief Terminal control for raw mode, key reading, and screen size detection in 'vox'.
+ * @brief Terminal abstraction layer for 'vox' using ncurses — replaces raw ANSI escape code rendering.
  * 
  * Functions:
- * - `die(s)` — exits with error message and screen reset.
- * - `enableRawMode()` / `disableRawMode()` — switches terminal to raw input mode.
- * - `editorReadKey()` — reads and decodes keypresses (arrows, home, del, etc).
- * - `getWindowSize(rows, cols)` — queries terminal dimensions via ioctl.
+ * - `initTerminal()` — initializes ncurses, hides cursor initially, enables keypad input.
+ * - `cleanupTerminal()` — restores terminal state on exit.
+ * - `editorReadKey()` — reads keypress and returns editorKey enum (ARROW_LEFT, DEL_KEY, etc) — same interface as before.
+ * - `refreshTerminal()` — full screen redraw using ncurses (replaces editorRefreshScreen).
  * 
- * Note: POSIX-specific (termios, ioctl). No logging. Used by editor and input modules.
+ * Lua integration: Not directly exposed, but enables stable UI for Lua-bound functions.
+ * 
+ * Note: No logging. Replaces all raw ANSI code handling. Depends on ncurses.h. Cursor is always visible and correctly positioned.
  */
 
 #pragma once
 
-#include <termios.h>
+#include <curses.h>
 
 namespace vox {
 
+// Перенесены сюда из старого terminal.hpp — чтобы другие файлы видели
 #define CTRL_KEY(k) ((k) & 0x1f)
 
 enum editorKey {
@@ -32,10 +35,9 @@ enum editorKey {
     END_KEY
 };
 
-[[noreturn]] void die(const char* s);
-void disableRawMode();
-void enableRawMode();
+void initTerminal();
+void cleanupTerminal();
 int editorReadKey();
-int getWindowSize(int* rows, int* cols);
+void refreshTerminal();
 
 } // namespace vox

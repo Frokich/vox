@@ -39,18 +39,18 @@ void initEditor() {
     E.dirty = 0;
     E.statusmsg_time = 0;
 
-    if (getWindowSize(&E.screenrows, &E.screencols) == -1)
-        die("getWindowSize");
-    E.screenrows -= 2; // Reserve 2 lines for status + message bar
+    getmaxyx(stdscr, E.screenrows, E.screencols);
+    E.screenrows -= 2; // Reserve for status + message bar
 }
 
 void editorDrawRows(std::string& ab) {
     for (int y = 0; y < E.screenrows; y++) {
         int filerow = y + E.rowoff;
+
         if (filerow >= E.numrows) {
             if (E.numrows == 0 && y == E.screenrows / 3) {
                 std::ostringstream oss;
-                oss << "vox editor -- version " << "0.0.1";
+                oss << "vox editor -- version 0.0.1";
                 std::string welcome = oss.str();
                 int welen = welcome.length();
                 if (welen > E.screencols) welen = E.screencols;
@@ -68,10 +68,9 @@ void editorDrawRows(std::string& ab) {
             int len = E.row[filerow].render.length() - E.coloff;
             if (len < 0) len = 0;
             if (len > E.screencols) len = E.screencols;
-            if (len > 0)
-                ab.append(E.row[filerow].render, E.coloff, len);
+            ab.append(E.row[filerow].render, E.coloff, len);
         }
-        ab += "\x1b[K\r\n";
+        ab += "\x1b[K\r\n";  // \r\n — перевод строки
     }
 }
 
@@ -117,25 +116,51 @@ void editorRefreshScreen() {
     editorScroll();
     std::string ab;
 
-    ab += "\x1b[?25l"; // hide cursor
-    ab += "\x1b[H";    // move to top-left
+    ab += "\x1b[H";
 
-    editorDrawRows(ab);
-    editorStatusBar(ab);
-    editorDrawMessageBar(ab);
+    for (int y = 0; y < E.screenrows; y++) {
+        int filerow = y + E.rowoff;
+        if (filerow >= E.numrows) {
+            ab += "~\x1b[K\r\n";
+        } else {
+            int len = E.row[filerow].render.length() - E.coloff;
+            if (len < 0) len = 0;
+            if (len > E.screencols) len = E.screencols;
+            if (len > 0)
+                ab.append(E.row[filerow].render, E.coloff, len);
+            ab += "\x1b[K\r\n";
+        }
+    }
 
-    std::ostringstream oss;
-    oss << "\x1b[" << (E.cy - E.rowoff + 1) << ";" << (E.rx - E.coloff + 1) << "H";
-    ab += oss.str();
-    ab += "\x1b[?25h"; // show cursor
+    ab += "\x1b[7m";
+    ab += E.filename.empty() ? "[No Name]" : E.filename.substr(0, 20);
+    ab += " - ";
+    ab += std::to_string(E.numrows);
+    ab += " lines";
+    if (E.dirty) ab += " (modified)";
+    ab += "\x1b[m\r\n";
+
+    ab += "\x1b[K";
+    if (!E.statusmsg.empty() && time(nullptr) - E.statusmsg_time < 5)
+        ab += E.statusmsg;
+    ab += "\r\n";
+
+    int cy = E.cy - E.rowoff + 1;
+    int cx = E.rx - E.coloff + 1;
+    if (cy < 1) cy = 1;
+    if (cy > E.screenrows) cy = E.screenrows;
+    if (cx < 1) cx = 1;
+    if (cx > E.screencols) cx = E.screencols;
+    ab += "\x1b[" + std::to_string(cy) + ";" + std::to_string(cx) + "H";
 
     write(STDOUT_FILENO, ab.c_str(), ab.length());
 }
 
 void editorScroll() {
-    E.rx = E.cx;
-    if (E.cy < E.numrows) {
+    if (E.cy >= 0 && E.cy < E.numrows) {
         E.rx = editorCxToRx(E.row[E.cy], E.cx);
+    } else {
+        E.rx = E.cx;
     }
 
     if (E.cy < E.rowoff) {
@@ -145,7 +170,7 @@ void editorScroll() {
         E.rowoff = E.cy - E.screenrows + 1;
     }
 
-    if (E.cx < E.coloff) {
+    if (E.rx < E.coloff) {
         E.coloff = E.rx;
     }
     if (E.rx >= E.coloff + E.screencols) {

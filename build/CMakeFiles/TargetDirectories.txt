@@ -1,7 +1,0 @@
-/home/froki/vox/build/CMakeFiles/vox.dir
-/home/froki/vox/build/CMakeFiles/edit_cache.dir
-/home/froki/vox/build/CMakeFiles/rebuild_cache.dir
-/home/froki/vox/build/CMakeFiles/list_install_components.dir
-/home/froki/vox/build/CMakeFiles/install.dir
-/home/froki/vox/build/CMakeFiles/install/local.dir
-/home/froki/vox/build/CMakeFiles/install/strip.dir

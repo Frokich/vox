@@ -65,6 +65,8 @@ void editorInsertChar(int c) {
         editorInsertRow(E.numrows, "");
     editorRowInsertChar(&E.row[E.cy], E.cx, c);
     E.cx++;
+
+    fprintf(stderr, "Inserted char '%c' at (%d,%d)\n", c, E.cx, E.cy);
 }
 
 void editorInsertNewLine() {
