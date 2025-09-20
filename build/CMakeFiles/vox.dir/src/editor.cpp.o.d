@@ -174,6 +174,8 @@ CMakeFiles/vox.dir/src/editor.cpp.o: /home/froki/vox/src/editor.cpp \
  /usr/include/c++/10/pstl/execution_defs.h /usr/include/c++/10/stack \
  /usr/include/c++/10/deque /usr/include/c++/10/bits/stl_deque.h \
  /usr/include/c++/10/bits/deque.tcc /usr/include/c++/10/bits/stl_stack.h \
+ /usr/include/c++/10/chrono /usr/include/c++/10/ratio \
+ /usr/include/c++/10/ctime /usr/include/c++/10/bits/parse_numbers.h \
  /usr/include/lua5.4/lua.h /usr/include/lua5.4/luaconf.h \
  /usr/lib/gcc/x86_64-linux-gnu/10/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/10/include/syslimits.h \
