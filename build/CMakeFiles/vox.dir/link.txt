@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/vox.dir/src/editor.cpp.o -o vox  -lcurses /usr/lib/x86_64-linux-gnu/libform.so -llua5.4
